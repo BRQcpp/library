@@ -1,0 +1,185 @@
+@font-face {
+    font-family: Quicksand;
+    src: url(fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
+}
+
+* {
+    font-family: Quicksand;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: #313131;
+}
+
+.header {
+    width: 100%;
+    height: 200px;
+    font-size: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b4a4a;
+    color: white;
+    border-bottom: 2px solid black;
+}
+
+.main-content {
+    color: white;
+    display: flex;
+}
+
+.book-list {
+    display: flex;
+    justify-content: space-evenly;
+    width: 1000px;
+    height: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.stack {
+    width: 212px;
+    height: 282px;
+}
+
+.book-add-container {
+    display: none;
+}
+
+.book-text-input, .book-number-input {
+    box-sizing: border-box;
+    font-size: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: #3a3a3a;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    width: 50px;
+    height: 28px;
+}
+
+.book-text-input {
+    width: 180px;
+}
+
+.add {
+    transition: 0.3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+
+.book-add {
+    background-color:#4d834d66;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    display: none;
+}
+
+.book {
+    height: 270px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+
+.plus-img {
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
+}
+
+.book-caption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.caption {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* do later in js*/
+    text-align: center;
+    font-size: 20px;
+    width: 200px;
+    height: 30px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.caption-label {
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#c2c2c2;
+}
+
+.read-status-input {
+    outline: none;
+    color: white;
+    border: none;
+    border: 1px solid #767676;
+    border-radius: 3px;
+    background-color: #313131;
+    display: flex;
+    text-align: center;
+}
+
+.remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+}
+
+.minus-img {
+    width: 35px;
+    height: 7px;
+    opacity: 0.4;
+}
+
+/* width */
+::-webkit-scrollbar {
+    height: 5px;
+}
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #222222;
+}
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #393939;
+}
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #393939;
+}
