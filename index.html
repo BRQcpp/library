@@ -18,7 +18,7 @@
 
         <div class="book-list">
 
-            <div class="stack">
+           <div class="stack">
 
                 <div class="book-add-container">
                     <form class="book book-add-menu">
@@ -38,11 +38,16 @@
                         </div>
         
                         <div class="book-caption">  
+                            <span class="caption-label">Score</span>
+                            <input class="book-number-input score-input" type="number" name="scoreInput" min="0" max="10">
+                        </div>
+
+                        <div class="book-caption">  
 
                             <span class="caption-label">Status</span>
                             <select name="readStatus" class="read-status-input">
                                 <option value="read">read</option>
-                                <option value="not read">not read</option>
+                                <option value="notread">not read</option>
                                 <option value="onhold">on hold</option>
                                 <option value="dropped">dropped</option>
                             </select>
@@ -54,146 +59,12 @@
                         </div>
                     </form>
                 </div>
-
+                
                 <div class="book book-add">
                     <img class="plus-img" src="graphics/plus.png" alt="image of plus">
                 </div>
 
             </div>
-
-            <div class="book" data-id="1">
-                
-                <div class="book-caption">
-                    <span class="caption-label">Title</span>
-                    <span class="caption" id="title">Fire and blood</span>
-                </div>
-
-                <div class="book-caption">
-                    <span class="caption-label">Author</span>
-                    <span class="caption" id="author">George R.R. Martin</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Pages</span>
-                    <span class="caption" id="pages">627</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Status</span>
-                    <select name="readStatus" class="read-status-input">
-                        <option value="read">read</option>
-                        <option value="not read">not read</option>
-                        <option value="onhold">on hold</option>
-                        <option value="dropped">dropped</option>
-                    </select>
-                </div>
-
-                <div class="remove">
-                    <img class="minus-img" src="graphics/minus.png" alt="image of minus">
-                </div>
-            </div>
-
-            <div class="book" data-id="2">
-                                
-                <div class="book-caption">
-                    <span class="caption-label">Title</span>
-                    <span class="caption" id="title">Hunger Games</span>
-                </div>
-
-                <div class="book-caption">
-                    <span class="caption-label">Author</span>
-                    <span class="caption" id="author">Suzanne Collins</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Pages</span>
-                    <span class="caption" id="pages">348</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Status</span>
-                    <select name="readStatus" class="read-status-input">
-                        <option value="read">read</option>
-                        <option value="not read">not read</option>
-                        <option value="onhold">on hold</option>
-                        <option value="dropped">dropped</option>
-                    </select>
-                </div>
-
-                <div class="remove">
-                    <img class="minus-img" src="graphics/minus.png" alt="image of minus">
-                </div>
-
-            </div>
-
-            <div class="book" data-id="3">
-                                
-                <div class="book-caption">
-                    <span class="caption-label">Title</span>
-                    <span class="caption" id="title">Pale blue dot</span>
-                </div>
-
-                <div class="book-caption">
-                    <span class="caption-label">Author</span>
-                    <span class="caption" id="author">Carl Sagan</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Pages</span>
-                    <span class="caption" id="pages">543</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Status</span>
-                    <select name="readStatus" class="read-status-input">
-                        <option value="read">read</option>
-                        <option value="not read">not read</option>
-                        <option value="onhold">on hold</option>
-                        <option value="dropped">dropped</option>
-                    </select>
-                </div>
-
-                <div class="remove">
-                    <img class="minus-img" src="graphics/minus.png" alt="image of minus">
-                </div>
-
-            </div>
-            
- 
-
-            <div class="book" data-id="4">
-                                
-                <div class="book-caption">
-                    <span class="caption-label">Title</span>
-                    <span class="caption" id="title">Pale blue dot</span>
-                </div>
-
-                <div class="book-caption">
-                    <span class="caption-label">Author</span>
-                    <span class="caption" id="author">Carl Sagan</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Pages</span>
-                    <span class="caption" id="pages">543</span>
-                </div>
-
-                <div class="book-caption">  
-                    <span class="caption-label">Status</span>
-                    <select name="readStatus" class="read-status-input">
-                        <option value="read">read</option>
-                        <option value="notread">not read</option>
-                        <option value="onhold">on hold</option>
-                        <option value="dropped">dropped</option>
-                    </select>
-                </div>
-
-                <div class="remove">
-                    <img class="minus-img" src="graphics/minus.png" alt="image of minus">
-                </div>
-            </div>
-            
-        </div>
     </div>
 
 </body>
