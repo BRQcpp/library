@@ -14,58 +14,68 @@
         <span>Library</span>
     </div>
     
-    <div class="main-content">
+    <div class="content">
 
-        <div class="book-list">
+        <div class="left-menu">
 
-           <div class="stack">
+        </div>
 
-                <div class="book-add-container">
-                    <form class="book book-add-menu">
-                        <div class="book-caption">
-                            <span class="caption-label">Title</span>
-                            <input type="text" name="title" class="book-text-input" required>
-                        </div>
+        <div class="main-content">
 
-                        <div class="book-caption">
-                            <span class="caption-label">Author</span>
-                            <input type="text" name="author" class="book-text-input" required>
-                        </div>
-        
-                        <div class="book-caption">  
-                            <span class="caption-label">Pages</span>
-                            <input type="number" name="pages" class="book-number-input" min="0" max="99999" required>
-                        </div>
-        
-                        <div class="book-caption">  
-                            <span class="caption-label">Score</span>
-                            <input class="book-number-input score-input" type="number" name="scoreInput" min="0" max="10">
-                        </div>
+            <div class="book-list">
 
-                        <div class="book-caption">  
+            <div class="stack">
 
-                            <span class="caption-label">Status</span>
-                            <select name="readStatus" class="read-status-input">
-                                <option value="read">read</option>
-                                <option value="notread">not read</option>
-                                <option value="onhold">on hold</option>
-                                <option value="dropped">dropped</option>
-                            </select>
+                    <div class="book-add-container">
+                        <form class="book book-add-menu">
+                            <div class="book-caption">
+                                <span class="caption-label">Title</span>
+                                <input type="text" name="title" class="book-text-input" required>
+                            </div>
 
-                        </div>
+                            <div class="book-caption">
+                                <span class="caption-label">Author</span>
+                                <input type="text" name="author" class="book-text-input" required>
+                            </div>
+            
+                            <div class="book-caption">  
+                                <span class="caption-label">Pages</span>
+                                <input type="number" name="pages" class="book-number-input" min="0" max="99999" required>
+                            </div>
+            
+                            <div class="book-caption">  
+                                <span class="caption-label">Score</span>
+                                <input class="book-number-input score-input" type="number" name="scoreInput" min="0" max="10">
+                            </div>
+
+                            <div class="book-caption">  
+
+                                <span class="caption-label">Status</span>
+                                <select name="readStatus" class="read-status-input">
+                                    <option value="read">read</option>
+                                    <option value="notread">not read</option>
+                                    <option value="onhold">on hold</option>
+                                    <option value="dropped">dropped</option>
+                                </select>
+
+                            </div>
+                        
+                            <div class="add">
+                                <img class="plus-little-img" src="graphics/plus-little.png" alt="image of minus">
+                            </div>
+                        </form>
+                    </div>
                     
-                        <div class="add">
-                            <img class="plus-little-img" src="graphics/plus-little.png" alt="image of minus">
-                        </div>
-                    </form>
-                </div>
-                
-                <div class="book book-add">
-                    <img class="plus-img" src="graphics/plus.png" alt="image of plus">
-                </div>
+                    <div class="book book-add">
+                        <img class="plus-img" src="graphics/plus.png" alt="image of plus">
+                    </div>
 
-            </div>
+                </div>
+            </div>   
+        </div>
+
     </div>
+
 
 </body>
 </html>

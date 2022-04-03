@@ -9,17 +9,16 @@
 
 body {
     margin: 0;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100vh;
     box-sizing: border-box;
     background-color: #313131;
 }
 
 .header {
     width: 100%;
-    height: 200px;
+    height: 20%;
     font-size: 55px;
     display: flex;
     justify-content: center;
@@ -29,9 +28,24 @@ body {
     border-bottom: 2px solid black;
 }
 
+.content {
+    display: flex;
+    height: 77%;
+}
+
+.left-menu {
+    width: 20%;
+    background-color: #272727;
+    flex-shrink: 0;
+    border-right: 1px solid black;
+}
+
 .main-content {
     color: white;
     display: flex;
+    width: 80%;
+    overflow: auto;
+    align-items: center;
 }
 
 .book-list {
@@ -41,6 +55,7 @@ body {
     height: 100%;
     flex-wrap: wrap;
     margin-top: 20px;
+    margin: auto;
 }
 
 .stack {
@@ -85,6 +100,18 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+}
+
+.book-add-am {
+    top: -332px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+.book-am {
+    opacity: 0;
+    transition: opacity 0.5s;
 }
 
 input[type=number]::-webkit-inner-spin-button {
@@ -171,11 +198,23 @@ input[type=number]::-webkit-inner-spin-button {
     width: 35px;
     height: 7px;
     opacity: 0.4;
+    transition: 0.3s;
 }
 
 .minus-img:hover {
-    transition: 0.3s;
     opacity: 1;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3%;
+    background-color: #272727;
+    border-top: 1px solid black;
 }
 
 /* width */
