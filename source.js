@@ -10,6 +10,66 @@ addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read');
 addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold');
 addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','dropped');
 
+
+bookAddContainer.addEventListener('click', () =>
+{
+    let inputs = [addBookForm.title, addBookForm.author, addBookForm.pages];
+    for(let input of inputs)
+    {
+        if(input.style.getPropertyValue('border') != '')
+        {
+            input.style.removeProperty('border');
+            input.removeAttribute('placeholder');
+        }
+    }
+});
+
+addButton.addEventListener('click', () => 
+{
+    addButton.classList.add('book-add-am');
+    bookAddContainer.style.setProperty('display', 'block');
+});
+
+addButtonSecondary.addEventListener('click', (event) => {
+    let emptyInput = getEmpty();
+    let isInvalid  = getInvalidInput();
+    if(emptyInput == false)
+    {
+        if(isInvalid == false)
+        {
+            addBookToLibrary(addBookForm.title.value, addBookForm.author.value, addBookForm.pages.value, addBookForm.score.value,addBookForm.status.value);
+            addButton.classList.remove('book-add-am');
+            addButton.style.removeProperty('display');
+            bookAddContainer.style.setProperty('display', 'none');
+            addBookForm.author.value = '';
+            addBookForm.title.value = '';
+            addBookForm.pages.value = '';
+            addBookForm.score.value = '';
+            addBookForm.status.value = 'read'
+        }
+        else 
+        {
+            for(let input of invalidInputs)
+            {
+                input.style.setProperty('border', '1px solid orange');
+                input.setAttribute('placeholder', 'Wrong input');
+            }
+        }
+    }
+    else if(emptyInput.length != 0)
+    {
+        for(let input of emptyInput)
+        {
+            input.style.setProperty('border', '1px solid red');
+            input.setAttribute('placeholder', 'FIll the input');
+        }
+    }
+
+    
+    event.stopImmediatePropagation()
+});
+
+
 function addEventRemoveBook(button)
 {
     button.addEventListener('click', () =>
@@ -31,6 +91,11 @@ function addEventRemoveBook(button)
         }
         removeBook(index);
     });
+
+    button.addEventListener('transitionend', (event) =>
+    {   
+        event.stopPropagation();
+    });
 }
 
 function setEventStatusChange(input)
@@ -40,45 +105,6 @@ function setEventStatusChange(input)
         myLibrary[input.getAttribute('data-id')].status = input.value;
     });
 }
-
-bookAddContainer.addEventListener('click', () =>
-{
-    let inputs = [addBookForm.title, addBookForm.author, addBookForm.pages];
-    for(let input of inputs)
-    {
-        if(input.style.getPropertyValue('border') != '')
-        {
-            input.style.removeProperty('border');
-            input.removeAttribute('placeholder');
-        }
-    }
-});
-
-addButton.addEventListener('click', () => 
-{
-    addButton.style.setProperty('display', 'none');
-    bookAddContainer.style.setProperty('display', 'block');
-});
-
-addButtonSecondary.addEventListener('click', (event) => {
-    let emptyInput = getEmpty();
-    if(emptyInput == false)
-    {
-        addBookToLibrary(addBookForm.title.value, addBookForm.author.value, addBookForm.pages.value, addBookForm.scoreInput.value,addBookForm.readStatus.value);
-        bookAddContainer.style.setProperty('display', 'none');
-        addButton.style.removeProperty('top', '0');
-        addButton.style.removeProperty('display');
-    }
-    else 
-    {
-        for(let input of emptyInput)
-        {
-            input.style.setProperty('border', '1px solid red');
-            input.setAttribute('placeholder', 'FIll the input');
-        }
-    }
-    event.stopImmediatePropagation()
-});
 
 function getEmpty() 
 {
@@ -92,6 +118,19 @@ function getEmpty()
     if(emptyInputs.length == 0)
         return false;
     return emptyInputs;
+}
+
+function getInvalidInput()
+{
+    invalidInputs = [];
+
+    if(addBookForm.pages.value > 99999 || addBookForm.pages.value < 1)
+        invalidInputs.push(addBookForm.pages);
+    if(addBookForm.score.value > 10|| addBookForm.score.value < 0)
+        invalidInputs.push(addBookForm.score);
+    if(invalidInputs.length == 0)
+        return false;
+    return invalidInputs;
 }
 
 function Book(title, author, pages, score, status) 
@@ -253,5 +292,10 @@ function addBookToDOM()
 function removeBook(index)
 {
     const parent = document.querySelector('.book-list');
-    parent.removeChild(parent.querySelector(`[data-id="${index}"]`));
+    let child = parent.querySelector(`[data-id="${index}"]`);
+    child.classList.add('book-am');
+    child.addEventListener('transitionend', () =>
+    {
+        parent.removeChild(child);
+    }, {once : true});
 }
