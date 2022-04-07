@@ -2,6 +2,9 @@ let addButton = document.querySelector('.book-add');
 let addButtonSecondary = document.querySelector('.plus-little-img');
 let addBookForm = document.querySelector('.book-add-menu');
 let bookAddContainer = document.querySelector('.book-add-container');
+let expandMenuButton = document.querySelector('.expand-button');
+let menu = document.querySelector('.menu');
+let sortMenuButtons = document.querySelector('.sort-menu').querySelectorAll('.menu-option');
 let removeButton = Array.from(document.querySelectorAll('.minus-img')); 
 let books = []; 
 let myLibrary = [];
@@ -10,6 +13,47 @@ addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read');
 addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold');
 addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','dropped');
 
+
+sortMenuButtons.forEach( (button) =>
+{
+    button.addEventListener('mousedown', () =>
+    {
+        sortMenuButtons.forEach( (button) =>
+        {
+            if(button.classList.contains('menu-option-checked'))
+                button.classList.remove('menu-option-checked');
+        });
+
+        button.classList.add('button-click-effect');
+        button.classList.add('menu-option-checked');
+    });
+
+    button.addEventListener('transitionend', () =>
+    {
+        button.classList.remove('button-click-effect');
+    });
+});
+
+expandMenuButton.addEventListener('click', () => 
+{
+    let topMenu = document.querySelector('.top-menu');
+    let expandMenuButtonImg = document.querySelector('.img-arrow');
+    topMenu.classList.toggle('roll-up');
+    document.querySelector('.main-content').classList.toggle('roll-up');
+    if(topMenu.classList.contains('roll-up'))
+    {
+        expandMenuButtonImg.setAttribute('src', 'graphics/arrow-down.png'); 
+        expandMenuButtonImg.setAttribute('alt', 'image of arrow pointing down'); 
+    }
+    else 
+    {
+        document.querySelector('.img-arrow').setAttribute('src', 'graphics/arrow-up.png');
+        expandMenuButtonImg.setAttribute('alt', 'image of arrow pointing up');
+        expandMenuButton.style.setProperty('border-top', '1px solid #2A3838');                
+    }
+
+
+});
 
 bookAddContainer.addEventListener('click', () =>
 {

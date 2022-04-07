@@ -27,6 +27,98 @@ body {
     background-color: #1b4a4a;
     color: white;
     border-bottom: 2px solid black;
+    z-index: 9;
+}
+
+.top-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.7s;
+}
+
+.menu {
+    width: 100%;
+    height: 130px;
+    background-color: hsl(180deg 47% 20% / 30%);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: auto;
+}
+
+.roll-up {
+    transform: translate(0px, -130px);
+}
+
+.sort-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 15px;
+}
+
+.menu-label {
+    font-size: 18px;
+}
+
+.menu-options {
+    display: flex;
+    gap: 15px;
+}
+
+.menu-option {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #1b4a4a;
+    border: 1px solid black;
+    color: inherit;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.button-click-effect {
+    transform: scale(0.95);
+}
+
+.menu-option-checked {
+    background-color: white;
+    color: #1b4a4a;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(27, 74, 74, 1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(27, 74, 74, 1);
+    box-shadow: 0px 0px 5px 1px rgba(27, 74, 74, 1);
+}
+
+.expand-button {
+    width: 50px;
+    height: 20px;
+    background-color:  hsl(180deg 47% 20% / 30%);
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-top: 1px solid #2A3838;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-arrow {
+    width: 47px;
+    height: 47px;
+    position: relative;
+    top: -3px;
+}
+
+.border {
+    display: flex;
+    width: 100%;
 }
 
 .main-content {
@@ -34,6 +126,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.7s;
 }
 
 .book-list {
@@ -203,6 +296,11 @@ input[type=number]::-webkit-inner-spin-button {
     border-top: 1px solid black;
 }
 
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -222,4 +320,8 @@ input[type=number]::-webkit-inner-spin-button {
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #393939;
+}
+
+.display-none-menu {
+    display: none !important;
 }
