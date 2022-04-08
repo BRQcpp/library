@@ -18,7 +18,7 @@ body {
 
 .header {
     width: 100%;
-    height: 212px;
+    height: 200px;
     font-size: 55px;
     flex-shrink: 0;
     display: flex;
@@ -47,10 +47,11 @@ body {
     align-items: center;
     color: white;
     overflow: auto;
+    border-bottom: 1px solid black;
 }
 
 .roll-up {
-    transform: translate(0px, -130px);
+    transform: translate(0px, -131px);
 }
 
 .sort-menu {
@@ -74,12 +75,16 @@ body {
 .menu-option {
     width: 80px;
     height: 30px;
-    border-radius: 5px;
+    border-radius: 9px;
     background-color: #1b4a4a;
-    border: 1px solid black;
+    border: 1px solid #848484;
     color: inherit;
     font-size: 15px;
     transition: 0.3s;
+}
+
+.menu-option:active {
+    transform: scale(0.95);
 }
 
 .button-click-effect {
@@ -96,12 +101,11 @@ body {
 
 .expand-button {
     width: 50px;
-    height: 20px;
-    background-color:  hsl(180deg 47% 20% / 30%);
+    height: 23px;
+    background-color:  #2A3838;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black;
-    border-top: 1px solid #2A3838;
     border-radius: 0 0 10px 10px;
     position: relative;
     display: flex;
@@ -134,12 +138,13 @@ body {
     justify-content: space-evenly;
     width: 1000px;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .stack {
     width: 222px;
-    height: 312px;
+    height: 332px;
 }
 
 .book-add-container {
@@ -182,7 +187,7 @@ body {
 }
 
 .book-add-am {
-    top: -332px;
+    top: -337px; 
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.5s, visibility 0.5s;
@@ -198,11 +203,11 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .book {
-    height: 300px;
+    height: 305px;
     width: 210px;
     margin-top: 20px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
     display: flex;
     flex-direction: column;

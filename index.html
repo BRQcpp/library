@@ -14,16 +14,16 @@
         <span>Library</span>
     </div>
     
-    <div class="top-menu">
+    <div class="top-menu  roll-up">
 
-        <div class="menu ">
+        <div class="menu">
             <div class="sort-menu">
                 <div class="menu-label">Sort by:</div>
                 <div class="menu-options">
-                    <button class="menu-option">Score</button>
-                    <button class="menu-option">Pages</button>
-                    <button class="menu-option">Status</button>
-                    <button class="menu-option">Title</button>
+                    <button data-value="score" class="menu-option">Score</button>
+                    <button data-value="pages" class="menu-option">Pages</button>
+                    <button data-value="status" class="menu-option">Status</button>
+                    <button data-value="title" class="menu-option">Title</button>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
     </div>
 
-    <div class="main-content">
+    <div class="main-content roll-up">
 
         <div class="book-list">
 
@@ -68,7 +68,7 @@
                             <span class="caption-label">Status</span>
                             <select name="status" class="read-status-input">
                                 <option value="read">read</option>
-                                <option value="notread">not read</option>
+                                <option value="reading">reading</option>
                                 <option value="onhold">on hold</option>
                                 <option value="dropped">dropped</option>
                             </select>

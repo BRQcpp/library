@@ -6,31 +6,45 @@ let expandMenuButton = document.querySelector('.expand-button');
 let menu = document.querySelector('.menu');
 let sortMenuButtons = document.querySelector('.sort-menu').querySelectorAll('.menu-option');
 let removeButton = Array.from(document.querySelectorAll('.minus-img')); 
+let bookIndex = 0;
 let books = []; 
-let myLibrary = [];
+//let myLibrary = [];
 
 addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read'); 
 addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','dropped');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '2','reading');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '6','reading');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '7','reading');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading');
 
 
 sortMenuButtons.forEach( (button) =>
 {
     button.addEventListener('mousedown', () =>
     {
-        sortMenuButtons.forEach( (button) =>
+        sortMenuButtons.forEach( (buttonA) =>
         {
-            if(button.classList.contains('menu-option-checked'))
-                button.classList.remove('menu-option-checked');
+            if(buttonA.classList.contains('menu-option-checked') && buttonA != button)
+                buttonA.classList.remove('menu-option-checked');
         });
 
         button.classList.add('button-click-effect');
-        button.classList.add('menu-option-checked');
+
+        let sortBy = button.getAttribute('data-value');
+        sortBooks(sortBy);
+    });
+
+    button.addEventListener('mouseup', () =>
+    {
+        if(!button.classList.contains('menu-option-checked'))
+            button.classList.add('menu-option-checked');
     });
 
     button.addEventListener('transitionend', () =>
     {
-        button.classList.remove('button-click-effect');
+        if(button.classList.contains('button-click-effect'))
+            button.classList.remove('button-click-effect');
     });
 });
 
@@ -43,16 +57,14 @@ expandMenuButton.addEventListener('click', () =>
     if(topMenu.classList.contains('roll-up'))
     {
         expandMenuButtonImg.setAttribute('src', 'graphics/arrow-down.png'); 
-        expandMenuButtonImg.setAttribute('alt', 'image of arrow pointing down'); 
+        expandMenuButtonImg.setAttribute('alt', 'image of arrow pointing down');    
     }
     else 
     {
         document.querySelector('.img-arrow').setAttribute('src', 'graphics/arrow-up.png');
         expandMenuButtonImg.setAttribute('alt', 'image of arrow pointing up');
-        expandMenuButton.style.setProperty('border-top', '1px solid #2A3838');                
+        expandMenuButton.style.setProperty('top', '-1px');         //not perfect solution     
     }
-
-
 });
 
 bookAddContainer.addEventListener('click', () =>
@@ -113,26 +125,62 @@ addButtonSecondary.addEventListener('click', (event) => {
     event.stopImmediatePropagation()
 });
 
+function sortBooks(sortBy)
+{
+    let sortable = [];
+    for(book of books)
+        sortable.push([book, book.querySelector(`#${sortBy}`).textContent]);
+    sortable.sort( (a, b) =>
+    {
+        if (+a[1] < +b[1])
+            return 1;
+        if (+a[1] > +b[1])
+            return -1;
+        return 0;
+    });
+
+    for(let i = 0; i < books.length; i++)
+        books[i] = sortable[i][0];
+
+    loadBooks();
+}
+
+function loadBooks()
+{
+    let parent = document.querySelector('.book-list');
+
+    let children = Array.from(parent.querySelectorAll('.book')).slice(2);
+    for(let i = 0; i < children.length; i++)
+    {
+        parent.removeChild(children[i]);    
+    }
+
+    for(let i = 0; i < children.length; i++)
+    {
+        parent.appendChild(books[i]);    
+    }
+
+}
 
 function addEventRemoveBook(button)
 {
     button.addEventListener('click', () =>
     {
         let index = +button.getAttribute('data-id');
-        let ArSlice1 = myLibrary.slice(0, index);
-        let ArSlice2 = myLibrary.slice(index+1, myLibrary.length);
-        myLibrary = ArSlice1.concat(ArSlice2);
+        //let ArSlice1 = myLibrary.slice(0, index);
+        //let ArSlice2 = myLibrary.slice(index+1, myLibrary.length);
+        //myLibrary = ArSlice1.concat(ArSlice2);
 
         ArSlice1 = books.slice(0, index);
         ArSlice2 = books.slice(index+1, books.length);
         books = ArSlice1.concat(ArSlice2);
 
-        for(let i = index; i < myLibrary.length; i++)
+        /*for(let i = index; i < myLibrary.length; i++)
         {
             books[i].setAttribute('data-id', i);
             books[i].querySelector('.minus-img').setAttribute('data-id', i);
             books[i].querySelector('.read-status-input').setAttribute('data-id', i);
-        }
+        }*/
         removeBook(index);
     });
 
@@ -188,17 +236,18 @@ function Book(title, author, pages, score, status)
 
 function addBookToLibrary(title, author, pages, score, status) 
 {
-    myLibrary.push(new Book(title, author, pages, score, status))
-    addBookToDOM();
+   // myLibrary.push(new Book(title, author, pages, score, status))
+    addBookToDOM(new Book(title, author, pages, score, status));
 }
 
-function addBookToDOM()
+function addBookToDOM(newBook)
 {
-    let index = myLibrary.length-1;
-  
+    let id = bookIndex;
+    bookIndex++;
+
     let book = document.createElement('div');
     book.classList.add('book');
-    book.setAttribute('data-id', index  );
+    book.setAttribute('data-id', id);
     
     let bookCaptionTitle = document.createElement('div');
     bookCaptionTitle.classList.add('book-caption');
@@ -210,7 +259,7 @@ function addBookToDOM()
     let captionTitle = document.createElement('span');
     captionTitle.classList.add('caption');
     captionTitle.setAttribute('id', 'title')
-    captionTitle.textContent = myLibrary[index].title;
+    captionTitle.textContent = newBook.title;
 
     bookCaptionTitle.appendChild(captionLabelTitle);
     bookCaptionTitle.appendChild(captionTitle);
@@ -227,7 +276,7 @@ function addBookToDOM()
     let captionAuthor = document.createElement('span');
     captionAuthor.classList.add('caption');
     captionAuthor.setAttribute('id', 'author')
-    captionAuthor.textContent = myLibrary[index].author;
+    captionAuthor.textContent = newBook.author;
 
     bookCaptionAuthor.appendChild(captionLabelAuthor);
     bookCaptionAuthor.appendChild(captionAuthor);
@@ -243,7 +292,7 @@ function addBookToDOM()
     let captionPages = document.createElement('span');
     captionPages.classList.add('caption');
     captionPages.setAttribute('id', 'pages')
-    captionPages.textContent = myLibrary[index].pages;
+    captionPages.textContent = newBook.pages;
 
     bookCaptionPages.appendChild(captionLabelPages);
     bookCaptionPages.appendChild(captionPages);
@@ -261,8 +310,8 @@ function addBookToDOM()
     captionScore.classList.add('caption', 'score-caption');
     captionScore.setAttribute('id', 'score')
 
-    if(myLibrary[index].score != '')
-        captionScore.textContent = myLibrary[index].score;
+    if(newBook.score != '')
+        captionScore.textContent = newBook.score;
     else
     captionScore.textContent = '-';
 
@@ -284,8 +333,8 @@ function addBookToDOM()
     option1.value = 'read';
     option1.textContent = 'read';
     let option2 = document.createElement('option');;
-    option2.value = 'notread';
-    option2.textContent = 'not read';
+    option2.value = 'reading';
+    option2.textContent = 'reading';
     let option3 = document.createElement('option');;
     option3.value = 'onhold';
     option3.textContent = 'on hold';
@@ -293,10 +342,10 @@ function addBookToDOM()
     option4.value = 'dropped';
     option4.textContent = 'dropped';
 
-    let status = myLibrary[index].status;
+    let status = newBook.status;
     if(status == 'read')
         option1.setAttribute('selected', '')
-    else if(status == 'not read')
+    else if(status == 'reading')
         option2.setAttribute('selected', '')
     else if(status == 'on hold')
         option3.setAttribute('selected', '')
@@ -307,8 +356,8 @@ function addBookToDOM()
     selectInput.appendChild(option2);
     selectInput.appendChild(option3);
     selectInput.appendChild(option4);
-    selectInput.setAttribute('data-id', index);    
-    setEventStatusChange(selectInput);
+    selectInput.setAttribute('data-id', id);    
+    //setEventStatusChange(selectInput);
 
     bookCaptionStatus.appendChild(captionLabelStatus);
     bookCaptionStatus.appendChild(selectInput);
@@ -322,7 +371,7 @@ function addBookToDOM()
     img.classList.add('minus-img');
     img.setAttribute('src', 'graphics/minus.png')
     img.setAttribute('alt', 'image of minus')
-    img.setAttribute('data-id', index);
+    img.setAttribute('data-id', id);
 
     remove.appendChild(img);
     book.appendChild(remove);
@@ -333,10 +382,10 @@ function addBookToDOM()
     books.push(book);
 }
 
-function removeBook(index)
+function removeBook(id)
 {
     const parent = document.querySelector('.book-list');
-    let child = parent.querySelector(`[data-id="${index}"]`);
+    let child = parent.querySelector(`[data-id="${id}"]`);
     child.classList.add('book-am');
     child.addEventListener('transitionend', () =>
     {
