@@ -13,9 +13,9 @@ let books = [];
 addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read'); 
 addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold');
 addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '2','reading');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '6','reading');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '7','reading');
+addBookToLibrary('Aale Blue Dot', 'Carl Sagan', '232', '10','reading');
+addBookToLibrary('Rale Blue Dot', 'Carl Sagan', '132', '6','reading');
+addBookToLibrary('Cale Blue Dot', 'Carl Sagan', '832', '7','reading');
 addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading');
 
 
@@ -127,20 +127,49 @@ addButtonSecondary.addEventListener('click', (event) => {
 
 function sortBooks(sortBy)
 {
-    let sortable = [];
-    for(book of books)
-        sortable.push([book, book.querySelector(`#${sortBy}`).textContent]);
-    sortable.sort( (a, b) =>
+    if(sortBy == 'status')
     {
-        if (+a[1] < +b[1])
-            return 1;
-        if (+a[1] > +b[1])
-            return -1;
-        return 0;
-    });
+        let read = books.filter(book => book.querySelector('.read-status-input').value == 'read');
+        let reading = books.filter(book => book.querySelector('.read-status-input').value == 'reading');
+        let onhold = books.filter(book => book.querySelector('.read-status-input').value == 'onhold');
+        let dropped = books.filter(book => book.querySelector('.read-status-input').value == 'dropped');
+        books = read.concat(reading).concat(onhold).concat(dropped);
+    }
 
-    for(let i = 0; i < books.length; i++)
+    else if(sortBy == 'score' || sortBy == 'pages' || sortBy == 'title')
+    {
+        let sortable = [];
+        for(book of books)
+            sortable.push([book, book.querySelector(`#${sortBy}`).textContent]);
+
+        sortable.sort( (a, b) =>
+        {
+            if(!(sortBy == 'title'))
+            {
+                if (+a[1] < +b[1])
+                    return 1;
+                if (+a[1] > +b[1])
+                    return -1;
+                return 0;
+            }
+            else 
+            {
+                if (a[1] > b[1])
+                    return 1;
+                if (a[1] < b[1])
+                    return -1;
+                return 0;
+            }
+        });
+
+        for(let i = 0; i < books.length; i++)
         books[i] = sortable[i][0];
+    }
+
+    else if (sortBy == 'title')
+    {
+
+    }
 
     loadBooks();
 }
