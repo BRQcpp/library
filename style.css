@@ -83,6 +83,20 @@ body {
     transition: 0.3s;
 }
 
+.sort-arrows {
+
+}
+
+.s-arrow-img {
+    height: 20px;
+    width: 20px;
+    transition: 0.3s;
+}
+
+.s-arrow-img-checked {
+    transform: scale(1.25);
+}
+
 .menu-option:active {
     transform: scale(0.95);
 }
@@ -117,7 +131,7 @@ body {
     width: 47px;
     height: 47px;
     position: relative;
-    top: -3px;
+    top: -1px;
 }
 
 .border {
