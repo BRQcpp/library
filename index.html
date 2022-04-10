@@ -25,6 +25,9 @@
                     <button data-value="pages" class="menu-option">Pages</button>
                     <button data-value="status" class="menu-option">Status</button>
                     <button data-value="title" class="menu-option">Title</button>
+                    <button data-value="author" class="menu-option">Author</button>
+                    <button data-value="read-date" class="menu-option">Read date</button>
+                    <button data-value="date-sreading" class="menu-option">Started reading</button>
                 </div>
 
                 <div class="sort-arrows">
@@ -52,22 +55,22 @@
                     <form class="book book-add-menu">
                         <div class="book-caption">
                             <span class="caption-label">Title</span>
-                            <input type="text" name="title" class="book-text-input" required>
+                            <input type="text" name="title" class="book-text-input" id='book-ad-input' required>
                         </div>
 
                         <div class="book-caption">
                             <span class="caption-label">Author</span>
-                            <input type="text" name="author" class="book-text-input" required>
+                            <input type="text" name="author" class="book-text-input" id='book-ad-input' required>
                         </div>
             
                         <div class="book-caption">  
                             <span class="caption-label">Pages</span>
-                            <input type="number" name="pages" class="book-number-input" min="1" max="99999" required>
+                            <input type="number" name="pages" class="book-number-input" min="1" max="99999" id='book-ad-input' required>
                         </div>
             
                         <div class="book-caption">  
                             <span class="caption-label">Score</span>
-                            <input class="book-number-input score-input" type="number" name="score" min="0" max="10">
+                            <input class="book-number-input score-input" placeholder="0-10" type="number" name="score" min="0" max="10" id='book-ad-input'>
                         </div>
 
                         <div class="book-caption">  
@@ -80,6 +83,20 @@
                                 <option value="dropped">dropped</option>
                             </select>
 
+                        </div>
+
+                        <div class="book-caption">
+
+                            <span class="caption-label">Read date</span>
+                            <input class="book-date-input" type="date" name="dateRead" id="read-date">
+        
+                        </div>
+        
+                        <div class="book-caption">
+        
+                            <span class="caption-label">Started reading</span>
+                            <input class="book-date-input" type="date" name="dateSReading" id="date-sreading">
+        
                         </div>
                         
                         <div class="add">
@@ -94,9 +111,8 @@
 
                 </div>
             </div>
-        </div>  
-    </div>
 
+    </div>
 
 </body>
 </html>

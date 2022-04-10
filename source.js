@@ -1,6 +1,7 @@
 let addButton = document.querySelector('.book-add');
 let addButtonSecondary = document.querySelector('.plus-little-img');
 let addBookForm = document.querySelector('.book-add-menu');
+let addBookInputs = document.querySelectorAll('#book-ad-input');
 let bookAddContainer = document.querySelector('.book-add-container');
 let expandMenuButton = document.querySelector('.expand-button');
 let menu = document.querySelector('.menu');
@@ -11,15 +12,15 @@ let sortBy;
 let bookIndex = 0;
 let books = []; 
 let sortFrom = 'up';
-//let myLibrary = [];
 
-addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read'); 
-addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '2','reading');
-addBookToLibrary('Aale Blue Dot', 'Carl Sagan', '232', '10','reading');
-addBookToLibrary('Rale Blue Dot', 'Carl Sagan', '132', '6','reading');
-addBookToLibrary('Cale Blue Dot', 'Carl Sagan', '832', '7','reading');
-addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading');
+
+addBookToLibrary('Fire and blood', 'George R.R. Martin', '632', '8','read', '2001-08-18', '2007-07-21'); 
+addBookToLibrary('Hunger Games', 'Suzanne Collins', '342', '9','on hold', '2002-03-12', '2006-02-03');
+addBookToLibrary('The world of Ice and Fire', 'George R.R. Martin', '432', '2','reading', '2003-08-18', '2005-07-21');
+addBookToLibrary('Anne of Green Gables', 'Lucy Maud Montgomery', '232', '10','dropped', '2004-08-18', '2004-07-21');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '132', '6','read', '2005-08-18', '2003-07-21');
+addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien', '832', '7','on hold', '2006-08-18', '2002-07-21');
+addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading', '2007-08-18', '2001-07-21');
 
 
 sortFromButtons.forEach( (button) =>
@@ -33,7 +34,7 @@ sortFromButtons.forEach( (button) =>
         if(sortBy != '' && !button.classList.contains('s-arrow-img-checked'))
         {
             button.classList.add('s-arrow-img-checked');
-            
+
             if(button.getAttribute('id') == 'sort-up')
                 sortFrom = 'up';
             else
@@ -92,17 +93,17 @@ expandMenuButton.addEventListener('click', () =>
     }
 });
 
-bookAddContainer.addEventListener('click', () =>
+addBookInputs.forEach( input =>
 {
-    let inputs = [addBookForm.title, addBookForm.author, addBookForm.pages];
-    for(let input of inputs)
+    input.addEventListener('click', () =>
     {
         if(input.style.getPropertyValue('border') != '')
         {
-            input.style.removeProperty('border');
-            input.removeAttribute('placeholder');
+           input.style.removeProperty('border');
+            if(input != addBookForm.score)
+                    input.removeAttribute('placeholder');
         }
-    }
+    });
 });
 
 addButton.addEventListener('click', () => 
@@ -114,35 +115,33 @@ addButton.addEventListener('click', () =>
 addButtonSecondary.addEventListener('click', (event) => {
     let emptyInput = getEmpty();
     let isInvalid  = getInvalidInput();
-    if(emptyInput == false)
+    if(emptyInput == false && isInvalid == false)
     {
-        if(isInvalid == false)
-        {
-            addBookToLibrary(addBookForm.title.value, addBookForm.author.value, addBookForm.pages.value, addBookForm.score.value,addBookForm.status.value);
-            addButton.classList.remove('book-add-am');
-            addButton.style.removeProperty('display');
-            bookAddContainer.style.setProperty('display', 'none');
-            addBookForm.author.value = '';
-            addBookForm.title.value = '';
-            addBookForm.pages.value = '';
-            addBookForm.score.value = '';
-            addBookForm.status.value = 'read'
-        }
-        else 
+        addBookToLibrary(addBookForm.title.value, addBookForm.author.value, addBookForm.pages.value, addBookForm.score.value,addBookForm.status.value, addBookForm.dateSReading.value, addBookForm.dateRead.value);
+        addButton.classList.remove('book-add-am');
+        addButton.style.removeProperty('display');
+        bookAddContainer.style.setProperty('display', 'none');
+        addBookForm.author.value = '';
+        addBookForm.title.value = '';
+        addBookForm.pages.value = '';
+        addBookForm.score.value = '';
+        addBookForm.status.value = 'read'
+        addBookForm.dateSReading.value = '';
+        addBookForm.dateRead.value = '';
+    }
+    else
+    {
+        if(emptyInput.length != 0)
+            for(let input of emptyInput)
+            {
+                input.style.setProperty('border', '1px solid red');
+                input.setAttribute('placeholder', 'FIll the input');
+            }
+
+        if(invalidInputs.length != 0)
         {
             for(let input of invalidInputs)
-            {
                 input.style.setProperty('border', '1px solid orange');
-                input.setAttribute('placeholder', 'Wrong input');
-            }
-        }
-    }
-    else if(emptyInput.length != 0)
-    {
-        for(let input of emptyInput)
-        {
-            input.style.setProperty('border', '1px solid red');
-            input.setAttribute('placeholder', 'FIll the input');
         }
     }
 
@@ -158,7 +157,46 @@ function sortBooks(sortBy)
     else if(sortBy == 'score' || sortBy == 'pages' || sortBy == 'title')
         sortStandardUp(sortBy);
 
+    else if(sortBy == 'read-date' || sortBy == 'date-sreading')
+        sortByDate(sortBy);
+        
+    else if(sortBy = 'author')
+        sortByAuthor();
+
+
     loadBooks();
+}
+
+function sortByDate(sortBy)
+{
+        let sortable = [];
+        for(book of books)
+            sortable.push([book, book.querySelector(`#${sortBy}`).value]);
+    
+        sortable.sort( (a, b) =>
+        {
+            a[1] = new Date(a[1]);
+            b[1] = new Date(b[1]);
+
+            if(sortFrom == 'up')
+            {
+                if (a[1] < b[1])
+                   return 1;
+                if (a[1] > b[1])
+                   return -1;
+                return 0;
+            }
+            else 
+            {
+                if (a[1] > b[1])
+                    return 1;
+                if (a[1] < b[1])
+                    return -1;
+            }
+        });
+    
+        for(let i = 0; i < books.length; i++)
+            books[i] = sortable[i][0];
 }
 
 function sortByStatus()
@@ -171,6 +209,31 @@ function sortByStatus()
         books = read.concat(reading).concat(onhold).concat(dropped);
     else 
         books = dropped.concat(onhold).concat(reading).concat(read);
+}
+
+function sortByAuthor()
+{
+    let authors = [];
+    let name;
+    for(book of books)
+    {
+        name = book.querySelector('#author').textContent;
+        if(authors.indexOf(name) == -1)
+            authors.push(name);
+    }
+
+    let booksSorted = [];
+    for(let i = 0; i < authors.length; i++)
+    {
+        booksSorted[i] = books.filter(book => book.querySelector('#author').textContent == authors[i]);
+    }
+
+    books = [];
+
+    for(let i = 0; i < authors.length; i++)
+    {
+        books = books.concat(booksSorted[i]);
+    }
 }
 
 function sortStandardUp(sortBy)
@@ -227,7 +290,6 @@ function sortStandardUp(sortBy)
     books[i] = sortable[i][0];
 }
 
-
 function loadBooks()
 {
     let parent = document.querySelector('.book-list');
@@ -249,22 +311,8 @@ function addEventRemoveBook(button)
 {
     button.addEventListener('click', () =>
     {
-        let index = +button.getAttribute('data-id');
-        //let ArSlice1 = myLibrary.slice(0, index);
-        //let ArSlice2 = myLibrary.slice(index+1, myLibrary.length);
-        //myLibrary = ArSlice1.concat(ArSlice2);
-
-        ArSlice1 = books.slice(0, index);
-        ArSlice2 = books.slice(index+1, books.length);
-        books = ArSlice1.concat(ArSlice2);
-
-        /*for(let i = index; i < myLibrary.length; i++)
-        {
-            books[i].setAttribute('data-id', i);
-            books[i].querySelector('.minus-img').setAttribute('data-id', i);
-            books[i].querySelector('.read-status-input').setAttribute('data-id', i);
-        }*/
-        removeBook(index);
+        let id = +button.getAttribute('data-id');
+        removeBook(id); 
     });
 
     button.addEventListener('transitionend', (event) =>
@@ -308,19 +356,20 @@ function getInvalidInput()
     return invalidInputs;
 }
 
-function Book(title, author, pages, score, status) 
+function Book(title, author, pages, score, status, dateSReading, dateRead) 
 {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.score = score;
     this.status = status;
+    this.readDate = dateRead;
+    this.dateSReading = dateSReading;
 }
 
-function addBookToLibrary(title, author, pages, score, status) 
+function addBookToLibrary(title, author, pages, score, status, dateSReading, dateRead) 
 {
-   // myLibrary.push(new Book(title, author, pages, score, status))
-    addBookToDOM(new Book(title, author, pages, score, status));
+    addBookToDOM(new Book(title, author, pages, score, status, dateSReading, dateRead));
 }
 
 function addBookToDOM(newBook)
@@ -440,11 +489,48 @@ function addBookToDOM(newBook)
     selectInput.appendChild(option3);
     selectInput.appendChild(option4);
     selectInput.setAttribute('data-id', id);    
-    //setEventStatusChange(selectInput);
 
     bookCaptionStatus.appendChild(captionLabelStatus);
     bookCaptionStatus.appendChild(selectInput);
     book.appendChild(bookCaptionStatus);
+
+
+    let bookCaptionDateSReading = document.createElement('div');
+    bookCaptionDateSReading .classList.add('book-caption');
+
+    let captionLabelDateSReading  = document.createElement('span');
+    captionLabelDateSReading .classList.add('caption-labels');
+    captionLabelDateSReading .textContent = 'Started reading';
+
+    let dateInput = document.createElement('input');
+    dateInput.classList.add('book-date-input');
+    dateInput.setAttribute('type', 'date');
+    dateInput.setAttribute('id', 'date-sreading');
+    dateInput.setAttribute('name', 'dateSReading');
+    dateInput.value = newBook.dateSReading;
+
+    bookCaptionDateSReading.appendChild(captionLabelDateSReading);
+    bookCaptionDateSReading.appendChild(dateInput);
+    book.appendChild(bookCaptionDateSReading);
+
+
+    let bookCaptionDateRead = document.createElement('div');
+    bookCaptionDateRead.classList.add('book-caption');
+
+    let captionLabelDateRead = document.createElement('span');
+    captionLabelDateRead.classList.add('caption-labels');
+    captionLabelDateRead.textContent = 'Date read';
+
+    dateInput = document.createElement('input');
+    dateInput.classList.add('book-date-input');
+    dateInput.setAttribute('type', 'date');
+    dateInput.setAttribute('id', 'read-date');
+    dateInput.setAttribute('name', 'dateRead');
+    dateInput.value = newBook.readDate;
+
+    bookCaptionDateRead.appendChild(captionLabelDateRead);
+    bookCaptionDateRead.appendChild(dateInput);
+    book.appendChild(bookCaptionDateRead);
 
 
     let remove = document.createElement('div');
@@ -472,6 +558,8 @@ function removeBook(id)
     child.classList.add('book-am');
     child.addEventListener('transitionend', () =>
     {
+        let index = books.indexOf(child);
+        books = books.splice(0, index).concat(books.splice(index+1, books.length));
         parent.removeChild(child);
     }, {once : true});
 }
