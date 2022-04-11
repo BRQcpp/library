@@ -23,6 +23,12 @@ addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien', '832', '7','on hold'
 addBookToLibrary('Pale Blue Dot', 'Carl Sagan', '432', '10','reading', '2007-08-18', '2001-07-21');
 
 
+addBookForm.addEventListener('keydown', e =>
+{
+    if(e.key == 'Enter')
+        e.preventDefault();
+});
+
 sortFromButtons.forEach( (button) =>
 {
     button.addEventListener('click', () =>
@@ -97,12 +103,11 @@ addBookInputs.forEach( input =>
 {
     input.addEventListener('click', () =>
     {
-        if(input.style.getPropertyValue('border') != '')
-        {
-           input.style.removeProperty('border');
-            if(input != addBookForm.score)
-                    input.removeAttribute('placeholder');
-        }
+        setInputValidationBorders(input);
+    });
+    input.addEventListener('input', () =>
+    {
+        setInputValidationBorders(input);
     });
 });
 
@@ -110,7 +115,17 @@ addButton.addEventListener('click', () =>
 {
     addButton.classList.add('book-add-am');
     bookAddContainer.style.setProperty('display', 'block');
+    Array.from(addBookInputs).slice(0, 3).forEach( (input) =>
+    {
+        input.setAttribute('required', '');
+    });
 });
+
+addBookForm.addEventListener('submit', (e)=>
+{
+    e.preventDefault();
+    return false;
+}, false);
 
 addButtonSecondary.addEventListener('click', (event) => {
     let emptyInput = getEmpty();
@@ -128,26 +143,41 @@ addButtonSecondary.addEventListener('click', (event) => {
         addBookForm.status.value = 'read'
         addBookForm.dateSReading.value = '';
         addBookForm.dateRead.value = '';
+
+        Array.from(addBookInputs).slice(0, 3).forEach( (input) =>
+        {
+            input.removeAttribute('required');
+        });
     }
     else
     {
-        if(emptyInput.length != 0)
-            for(let input of emptyInput)
-            {
-                input.style.setProperty('border', '1px solid red');
-                input.setAttribute('placeholder', 'FIll the input');
-            }
-
-        if(invalidInputs.length != 0)
+        if(invalidInputs != 0)
         {
             for(let input of invalidInputs)
                 input.style.setProperty('border', '1px solid orange');
         }
+        if(emptyInput != 0)
+        for(let input of emptyInput)
+        {
+            input.style.setProperty('border', '1px solid red');
+            input.setAttribute('placeholder', 'FIll the input');
+        }
+
     }
 
     
     event.stopImmediatePropagation()
 });
+
+function setInputValidationBorders(input)
+{
+    if(input.style.getPropertyValue('border') != '')
+    {
+       input.style.removeProperty('border');
+        if(input != addBookForm.score)
+                input.removeAttribute('placeholder');
+    }
+}
 
 function sortBooks(sortBy)
 {
@@ -340,6 +370,9 @@ function getEmpty()
     }
     if(emptyInputs.length == 0)
         return false;
+
+    if(emptyInputs.length == 0)
+        return 0;
     return emptyInputs;
 }
 
@@ -352,7 +385,7 @@ function getInvalidInput()
     if(addBookForm.score.value > 10|| addBookForm.score.value < 0)
         invalidInputs.push(addBookForm.score);
     if(invalidInputs.length == 0)
-        return false;
+        return 0;
     return invalidInputs;
 }
 

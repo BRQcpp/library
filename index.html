@@ -21,13 +21,13 @@
                 <div class="menu-label">Sort by</div>
 
                 <div class="menu-options">
-                    <button data-value="score" class="menu-option">Score</button>
-                    <button data-value="pages" class="menu-option">Pages</button>
-                    <button data-value="status" class="menu-option">Status</button>
-                    <button data-value="title" class="menu-option">Title</button>
-                    <button data-value="author" class="menu-option">Author</button>
-                    <button data-value="read-date" class="menu-option">Read date</button>
-                    <button data-value="date-sreading" class="menu-option">Started reading</button>
+                    <button data-value="score" class="menu-option" type="button">Score</button>
+                    <button data-value="pages" class="menu-option" type="button">Pages</button>
+                    <button data-value="status" class="menu-option" type="button">Status</button>
+                    <button data-value="title" class="menu-option" type="button">Title</button>
+                    <button data-value="author" class="menu-option" type="button">Author</button>
+                    <button data-value="read-date" class="menu-option" type="button">Read date</button>
+                    <button data-value="date-sreading" class="menu-option" type="button">Started reading</button>
                 </div>
 
                 <div class="sort-arrows">
@@ -52,15 +52,15 @@
             <div class="stack">
 
                 <div class="book-add-container">
-                    <form class="book book-add-menu">
+                    <form class="book book-add-menu" method="">
                         <div class="book-caption">
                             <span class="caption-label">Title</span>
-                            <input type="text" name="title" class="book-text-input" id='book-ad-input' required>
+                            <input type="text" name="title" minlength="1" maxlength="150" class="book-text-input" id='book-ad-input' required>
                         </div>
 
                         <div class="book-caption">
                             <span class="caption-label">Author</span>
-                            <input type="text" name="author" class="book-text-input" id='book-ad-input' required>
+                            <input type="text" name="author" minlength="1" maxlength="80"  class="book-text-input" id='book-ad-input' required>
                         </div>
             
                         <div class="book-caption">  
@@ -99,9 +99,12 @@
         
                         </div>
                         
-                        <div class="add">
-                            <img class="plus-little-img" src="graphics/plus-little.png" alt="image of minus">
+                        <div class="book-caption">
+                            <button class="add" type="submit">
+                                <img class="plus-little-img" src="graphics/plus-little.png" alt="image of minus">
+                            </button>
                         </div>
+
                     </form>
                 </div>
                     
