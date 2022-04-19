@@ -1,3 +1,18 @@
+class Book
+{
+    constructor(title, author, pages, score, status, dateSReading, dateRead)
+    {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.score = score;
+        this.status = status;
+        this.readDate = dateRead;
+        this.dateSReading = dateSReading;
+    }
+}
+
+
 let addButton = document.querySelector('.book-add');
 let addButtonSecondary = document.querySelector('.plus-little-img');
 let addBookForm = document.querySelector('.book-add-menu');
@@ -115,7 +130,7 @@ addButton.addEventListener('click', () =>
 {
     addButton.classList.add('book-add-am');
     bookAddContainer.style.setProperty('display', 'block');
-    Array.from(addBookInputs).slice(0, 3).forEach( (input) =>
+    Array.from(addBookInputs).slice(0, 3).forEach( (input) => //147 comment
     {
         input.setAttribute('required', '');
     });
@@ -144,7 +159,7 @@ addButtonSecondary.addEventListener('click', (event) => {
         addBookForm.dateSReading.value = '';
         addBookForm.dateRead.value = '';
 
-        Array.from(addBookInputs).slice(0, 3).forEach( (input) =>
+        Array.from(addBookInputs).slice(0, 3).forEach( (input) => //It is done for google chrome support of console errors caused by hiding required inputs 
         {
             input.removeAttribute('required');
         });
@@ -387,17 +402,6 @@ function getInvalidInput()
     if(invalidInputs.length == 0)
         return 0;
     return invalidInputs;
-}
-
-function Book(title, author, pages, score, status, dateSReading, dateRead) 
-{
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.score = score;
-    this.status = status;
-    this.readDate = dateRead;
-    this.dateSReading = dateSReading;
 }
 
 function addBookToLibrary(title, author, pages, score, status, dateSReading, dateRead) 
